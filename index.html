@@ -16,7 +16,8 @@
         body, html {
             height: 100%;
             background-color: #ffffff;
-            overflow: hidden;
+            /* Verhindert Scrollen auf dem Body selbst */
+            overflow: hidden; 
         }
 
         /* Container-Layout (Zwei Spalten) */
@@ -34,6 +35,8 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            /* Sidebar ist fixiert, kein Scrollen hier */
+            flex-shrink: 0; 
         }
 
         .top-icons {
@@ -98,30 +101,38 @@
             font-weight: 500;
         }
 
-        /* Rechte Seite (Login-Bereich) */
+        /* Rechte Seite (Login-Bereich) - JETZT SCROLLBAR */
         .login-main {
             width: 50%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 40px 20px 30px 20px;
-            position: relative;
+            /* Ermöglicht vertikales Scrollen in diesem Bereich */
+            overflow-y: auto; 
+            background-color: #ffffff;
+            padding: 40px 20px;
         }
 
-        /* Hilfs-Container für die vertikale Zentrierung */
-        .login-center-wrapper {
-            flex: 1;
+        /* Container für den gesamten Inhalt der rechten Seite */
+        .login-content-wrapper {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             width: 100%;
+            /* Sorgt dafür, dass der Footer ganz unten bleibt, wenn wenig Inhalt da ist */
+            min-height: 100%; 
         }
 
+        /* Container für den zentrierten Hauptinhalt (Formular, Logo, etc.) */
         .login-box {
             width: 100%;
             max-width: 380px;
             text-align: center;
+            /* Pusht den Footer nach unten */
+            flex-grow: 1; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 40px;
         }
 
         .login-title {
@@ -269,6 +280,7 @@
             justify-content: center;
             gap: 14px;
             margin-top: 45px;
+            margin-bottom: 20px;
         }
 
         .app-badges a {
@@ -281,7 +293,7 @@
             object-fit: contain;
         }
 
-        /* Footer am unteren Bildschirmrand */
+        /* Footer ganz unten */
         .login-footer {
             display: flex;
             justify-content: center;
@@ -289,6 +301,7 @@
             width: 100%;
             margin-top: auto;
             padding-top: 20px;
+            flex-shrink: 0;
         }
 
         .login-footer a {
@@ -298,27 +311,50 @@
             font-weight: 500;
         }
 
-        /* Responsive Anpassung */
+        /* Responsive Anpassung für Handys (Hochformat) */
         @media (max-width: 768px) {
+            body, html {
+                /* Erlaubt Scrollen auf dem gesamten Body, wenn Sidebar und Login untereinander sind */
+                overflow: auto; 
+            }
+
             .login-container {
                 flex-direction: column;
+                height: auto;
+                width: 100%;
             }
+
             .info-sidebar {
                 width: 100%;
                 height: auto;
+                min-height: 40vh;
                 padding: 30px 20px;
+                position: relative;
             }
-            .login-main {
-                width: 100%;
-                height: auto;
-                padding: 40px 20px 20px 20px;
-            }
+
             .sidebar-content {
                 padding-left: 0;
                 margin-top: 30px;
+                margin-bottom: 30px;
             }
-            body, html {
-                overflow: auto;
+
+            .login-main {
+                width: 100%;
+                height: auto;
+                min-height: 60vh;
+                padding: 40px 20px 30px 20px;
+                /* Deaktiviert internes Scrollen, da Body scrollt */
+                overflow-y: visible; 
+            }
+
+            .login-content-wrapper {
+                height: auto;
+                min-height: 0;
+            }
+
+            .login-box {
+                margin-bottom: 50px;
+                justify-content: flex-start;
             }
         }
     </style>
@@ -343,8 +379,7 @@
         </div>
 
         <div class="login-main">
-            
-            <div class="login-center-wrapper">
+            <div class="login-content-wrapper">
                 <div class="login-box">
                     <h2 class="login-title">WebUntis Login</h2>
                     
@@ -386,13 +421,12 @@
                         </a>
                     </div>
                 </div>
-            </div>
 
-            <div class="login-footer">
-                <a href="https://www.untis.at/impressum" target="_blank">Impressum</a>
-                <a href="https://www.untis.at/jobs" target="_blank">Jobs @ Untis</a>
+                <div class="login-footer">
+                    <a href="https://www.untis.at/impressum" target="_blank">Impressum</a>
+                    <a href="https://www.untis.at/jobs" target="_blank">Jobs @ Untis</a>
+                </div>
             </div>
-
         </div>
 
     </div>
