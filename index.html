@@ -16,7 +16,6 @@
         body, html {
             height: 100%;
             background-color: #ffffff;
-            /* Verhindert Scrollen auf dem Body selbst */
             overflow: hidden; 
         }
 
@@ -35,7 +34,6 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            /* Sidebar ist fixiert, kein Scrollen hier */
             flex-shrink: 0; 
         }
 
@@ -101,12 +99,11 @@
             font-weight: 500;
         }
 
-        /* Rechte Seite (Login-Bereich) - JETZT SCROLLBAR */
+        /* Rechte Seite (Login-Bereich) */
         .login-main {
             width: 50%;
             display: flex;
             flex-direction: column;
-            /* Ermöglicht vertikales Scrollen in diesem Bereich */
             overflow-y: auto; 
             background-color: #ffffff;
             padding: 40px 20px;
@@ -118,16 +115,14 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            /* Sorgt dafür, dass der Footer ganz unten bleibt, wenn wenig Inhalt da ist */
             min-height: 100%; 
         }
 
-        /* Container für den zentrierten Hauptinhalt (Formular, Logo, etc.) */
+        /* Container für den zentrierten Hauptinhalt */
         .login-box {
             width: 100%;
             max-width: 380px;
             text-align: center;
-            /* Pusht den Footer nach unten */
             flex-grow: 1; 
             display: flex;
             flex-direction: column;
@@ -314,7 +309,6 @@
         /* Responsive Anpassung für Handys (Hochformat) */
         @media (max-width: 768px) {
             body, html {
-                /* Erlaubt Scrollen auf dem gesamten Body, wenn Sidebar und Login untereinander sind */
                 overflow: auto; 
             }
 
@@ -343,7 +337,6 @@
                 height: auto;
                 min-height: 60vh;
                 padding: 40px 20px 30px 20px;
-                /* Deaktiviert internes Scrollen, da Body scrollt */
                 overflow-y: visible; 
             }
 
@@ -384,7 +377,7 @@
                     <h2 class="login-title">WebUntis Login</h2>
                     
                     <div class="school-logo-container">
-                        <img src="leitbild-blau.png" alt="Sacré Cœur Wien Logo" class="school-logo">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAABgCAMAAACv97wXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGBQTFRF////39/ft7e3v7+/x8fHw8PDzs7OxMTExsbGysrK1NTU0dHR2NjY4eHh3d3d5OTk4NDQ2trar6+vqqqqpKSko6Ojp6enoKCgn5+fnJycm5ubmJiYlpaWlZWVlJSUnZ2dzf5t9AAAAndRef00AAADZklEQVR42uyb2XbDMAxDkWzbeZvsbaft//9vE0uWbCmWgyXw9BywL8g6InAAMUVRFEVRFEVRFEVRFEVR/I8Y89m6bXf9cK6zZfG22Z77Zp3bdtvXGPLZun68PZ6Xh/vV/XpZ7DHHfLp+XJbrffk43eY/F7vPHfPp9vWw2m8f2vFw8Zg75tP1+2mzzP/b/O+ZfO6YfNpe9vvd0vE0nzP5zDH53P6fN0vP09GZfM6YfNreDsffj8P63DF3zKeH+fB0XNf7bMzlMceczw/r4Xb3ZDHGXD6f98fL6eHMMXbMZ3/bXw/3t9kxZsydw+fN9nQ5zB1jxpjD58tpfZkfYo65fI7D57V9nh5jjDGHz9vj/Zg75pE5ZscYs2OOf8Ac/4A5/gHPZ7ff7+3wY3b76X6/7x7zN+D21Hw8vB7bcf05P5+v6e/wOb3Mh/X5eNqOx/u8Lw8ffp8fn+ZlWdaHj+fXw+fD6+O2PLw/fP7z6Xl/vC8Pr7/Pr/Px8fA5rV/74fFp/9wefv6ctvntP2KOP2KOP2KOv8fzvC3X+R7PZ9vX6T63+/y1Tbf99r7O52X+/97pPj0uz8t+fX9v2w/b2f6Fv93Z8bLcl8fXp/v5/fB8vDwvv9v3/fF4un6dz8f9fjleluPlfvXz4w/8z6P19u9xfz7O9tP9erws19v99nBZrG3Mv8fDbfYx+0S+7pfXp/356f9xPp8fHvvZ7NPHfvvwsN+vMdfbYvYvYmKOPbHHntizffZkP49MTHm6HwPZJ/P0/Z9MTPnPwJiXf7FvKca8FGMf/4R9TDHmpRj7lGLsc4r9ZGKOf8Ac/4A5/gHPZ8zzPZ7PZszzfMSee8wPMeYhzv9FjPmYMfdfxJiPMX/zZ6wYM2PMX0bM57PZ9v68zfeZ/7fP6f0ffj+77fQfn93Zffp/63P3Gb7C9797/4ffz25Zvv07vsLnnv8vjvkXMMc/YI5/wHPKOfWccvYp59RzyqfG6XOfGqfPfWqcfurD/gXMMXfMHXPHfHqsY8Y6Zqxjxk/98FPH/DPm+GfM8c+Y4/Tz6fOn/Xz6/Gk/nz5/2s/9v6em2+enwz/1M92n+9w6/VOn99w+3fdfX8C8P/0O7/8f8v4XMPf/D3n/f8jbfwHz9p9v3/79f3X7L2De/vPtu8ccv8ccv8ccv8ccv8fzvK3Pfbvv8bbfDrdN7XObN8vvbVnmtn9O922bn9vjPjd/r9P7Zln+/b9vHn7N8H/D89n73++3fT5O++v2ftnvs33fPrvPnG99991tWb7N7P/D8z/5e+S3f/8r6P8E+fN/f0vX9Xpdt4fL9bL9Oby3r+b/6Yc4X/0xX9dln9vV/2vbe1vP1v1zXbePfT6vl332S67X7fN0eW7Xff/8X9LzFzCP/G957v7t/rY+7vvTfn5YlsWfyen2+3/33zP7H0+G2S/vbyGv++PhNf9Pf8S8P8z2uX1w+39vG/PH/XN5Tz67/bV+p6d/Xvfb9XN6zOnntu7P9P6xX5fXfP2n7u9tXfdPv79p279r//F0ebwtt4f5W9C2XW8P95fnNvs9vH9s++w34vH9vC3X+R5TntZtOfuY29un+fGvAAMADlYIdZInx4IAAAAASUVORK5CYII=" alt="Sacré Cœur Wien Logo" class="school-logo">
                     </div>
 
                     <form class="form-container" id="loginForm">
