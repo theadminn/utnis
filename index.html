@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebUntis Login</title>
+    <style>
+        /* Grundkonfiguration */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body, html {
+            height: 100%;
+            background-color: #ffffff;
+            overflow: hidden;
+        }
+
+        /* Container-Layout (Zwei Spalten) */
+        .login-container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Linke Seite (Sidebar) */
+        .info-sidebar {
+            width: 50%;
+            background: linear-gradient(135deg, #eef1f5 0%, #e2e7ed 100%);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .top-icons {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* WebUntis "U" Logo oben links */
+        .u-logo {
+            width: 42px;
+            height: 42px;
+            border: 2px dashed #adb5bd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: #6c757d;
+        }
+
+        /* Das orangefarbene Grid-Icon aus dem Screenshot */
+        .grid-icon {
+            width: 22px;
+            height: 22px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .grid-icon span {
+            background-color: #ff6b35;
+            border-radius: 2px;
+        }
+
+        .sidebar-content {
+            margin-top: auto;
+            margin-bottom: auto;
+            padding-left: 20px;
+        }
+
+        .current-date {
+            color: #6c757d;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        .school-name {
+            color: #1a202c;
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .change-school {
+            color: #1a202c;
+            text-decoration: underline;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Rechte Seite (Login-Bereich) */
+        .login-main {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+        }
+
+        .login-title {
+            font-size: 1.7rem;
+            color: #2d3748;
+            font-weight: 400;
+            margin-bottom: 35px;
+        }
+
+        .school-logo-container {
+            margin-bottom: 45px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .school-logo {
+            max-height: 100px;
+            max-width: 160px;
+            object-fit: contain;
+        }
+
+        /* Formular-Elemente */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Button: Bildungsportal */
+        .btn-portal {
+            width: 100%;
+            padding: 14px;
+            background-color: transparent;
+            border: 1px solid #cbd5e0;
+            border-radius: 25px;
+            font-size: 1rem;
+            color: #4a5568;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-portal:hover {
+            background-color: #f7fafc;
+        }
+
+        /* Trennlinie "oder" */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #a0aec0;
+            font-size: 0.9rem;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .divider:not(:empty)::before { margin-right: 1em; }
+        .divider:not(:empty)::after { margin-left: 1em; }
+
+        /* Input Styling exakt wie im Screenshot */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            background-color: #edf2f7;
+            border-radius: 4px;
+            padding: 10px 16px;
+            text-align: left;
+            border-bottom: 2px solid transparent;
+        }
+
+        .input-group:focus-within {
+            border-bottom-color: #ff6b35; /* Orangefarbener Unterstrich bei Fokus */
+        }
+
+        .input-group label {
+            font-size: 0.75rem;
+            color: #ff6b35; /* Orangefarbener Text für die Label */
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 1rem;
+            color: #2d3748;
+            width: 100%;
+            padding-top: 2px;
+        }
+
+        .password-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .toggle-password {
+            color: #a0aec0;
+            cursor: pointer;
+            user-select: none;
+            font-size: 1.1rem;
+            padding-left: 8px;
+        }
+
+        /* Inaktiver Login Button */
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background-color: #edf2f7;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            color: #a0aec0;
+            font-weight: bold;
+            cursor: not-allowed;
+            margin-top: 15px;
+        }
+
+        /* Responsive Anpassung für Handys */
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+            }
+            .info-sidebar {
+                width: 100%;
+                height: 40vh;
+                padding: 20px;
+            }
+            .login-main {
+                width: 100%;
+                height: 60vh;
+                padding: 20px;
+            }
+            .sidebar-content {
+                padding-left: 0;
+            }
+            body, html {
+                overflow: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        
+        <div class="info-sidebar">
+            <div class="top-icons">
+                <div class="u-logo">U</div>
+                <div class="grid-icon">
+                    <span></span><span></span><span></span><span></span>
+                </div>
+            </div>
+            
+            <div class="sidebar-content">
+                <p class="current-date">Heute 18.06.2026</p>
+                <h1 class="school-name">HAK/HASCH Wien 3, Fasang.4</h1>
+                <a href="#" class="change-school">Schule wechseln</a>
+            </div>
+        </div>
+
+        <div class="login-main">
+            <div class="login-box">
+                <h2 class="login-title">WebUntis Login</h2>
+                
+                <div class="school-logo-container">
+                    <img src="https://bafep.scp.ac.at/wp-content/uploads/sites/10/2017/01/leitbild-blau.png" alt="Sacré Cœur Wien Logo" class="school-logo">
+                </div>
+
+                <form class="form-container" onsubmit="return false;">
+                    <button type="button" class="btn-portal">Bildungsportal</button>
+                    
+                    <div class="divider">
+                        <span>oder</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="username">Benutzername</label>
+                        <input type="text" id="username" autocomplete="off">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Passwort</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password">
+                            <span class="toggle-password">👁</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-login" disabled>Login</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
