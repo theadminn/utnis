@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebUntis Login</title>
     <style>
+        /* Grundkonfiguration */
         * {
             margin: 0;
             padding: 0;
@@ -15,15 +16,18 @@
         body, html {
             height: 100%;
             background-color: #ffffff;
+            /* Verhindert Scrollen auf dem Body selbst */
             overflow: hidden; 
         }
 
+        /* Container-Layout (Zwei Spalten) */
         .login-container {
             display: flex;
             height: 100vh;
             width: 100vw;
         }
 
+        /* Linke Seite (Sidebar) */
         .info-sidebar {
             width: 50%;
             background: linear-gradient(135deg, #eef1f5 0%, #e2e7ed 100%);
@@ -31,6 +35,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            /* Sidebar ist fixiert, kein Scrollen hier */
             flex-shrink: 0; 
         }
 
@@ -40,6 +45,7 @@
             gap: 25px;
         }
 
+        /* WebUntis "U" Logo oben links */
         .u-logo {
             width: 42px;
             height: 42px;
@@ -53,6 +59,7 @@
             color: #6c757d;
         }
 
+        /* Das orangefarbene Grid-Icon */
         .grid-icon {
             width: 22px;
             height: 22px;
@@ -94,27 +101,33 @@
             font-weight: 500;
         }
 
+        /* Rechte Seite (Login-Bereich) - JETZT SCROLLBAR */
         .login-main {
             width: 50%;
             display: flex;
             flex-direction: column;
+            /* Ermöglicht vertikales Scrollen in diesem Bereich */
             overflow-y: auto; 
             background-color: #ffffff;
             padding: 40px 20px;
         }
 
+        /* Container für den gesamten Inhalt der rechten Seite */
         .login-content-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
+            /* Sorgt dafür, dass der Footer ganz unten bleibt, wenn wenig Inhalt da ist */
             min-height: 100%; 
         }
 
+        /* Container für den zentrierten Hauptinhalt (Formular, Logo, etc.) */
         .login-box {
             width: 100%;
             max-width: 380px;
             text-align: center;
+            /* Pusht den Footer nach unten */
             flex-grow: 1; 
             display: flex;
             flex-direction: column;
@@ -141,12 +154,14 @@
             object-fit: contain;
         }
 
+        /* Formular-Elemente */
         .form-container {
             display: flex;
             flex-direction: column;
             gap: 24px;
         }
 
+        /* Button: Bildungsportal */
         .btn-portal {
             width: 100%;
             padding: 14px;
@@ -163,6 +178,7 @@
             background-color: #f7fafc;
         }
 
+        /* Trennlinie "oder" */
         .divider {
             display: flex;
             align-items: center;
@@ -180,6 +196,7 @@
         .divider:not(:empty)::before { margin-right: 1em; }
         .divider:not(:empty)::after { margin-left: 1em; }
 
+        /* Input Styling */
         .input-group {
             display: flex;
             flex-direction: column;
@@ -225,6 +242,7 @@
             padding-left: 8px;
         }
 
+        /* Login Button Styling */
         .btn-login {
             width: 100%;
             padding: 14px;
@@ -245,6 +263,7 @@
             cursor: pointer;
         }
 
+        /* Passwort vergessen Link */
         .forgot-password {
             display: inline-block;
             margin-top: 24px;
@@ -255,6 +274,7 @@
             cursor: pointer;
         }
 
+        /* App Badges Bereich */
         .app-badges {
             display: flex;
             justify-content: center;
@@ -273,6 +293,7 @@
             object-fit: contain;
         }
 
+        /* Footer ganz unten */
         .login-footer {
             display: flex;
             justify-content: center;
@@ -290,8 +311,10 @@
             font-weight: 500;
         }
 
+        /* Responsive Anpassung für Handys (Hochformat) */
         @media (max-width: 768px) {
             body, html {
+                /* Erlaubt Scrollen auf dem gesamten Body, wenn Sidebar und Login untereinander sind */
                 overflow: auto; 
             }
 
@@ -320,6 +343,7 @@
                 height: auto;
                 min-height: 60vh;
                 padding: 40px 20px 30px 20px;
+                /* Deaktiviert internes Scrollen, da Body scrollt */
                 overflow-y: visible; 
             }
 
@@ -360,7 +384,7 @@
                     <h2 class="login-title">WebUntis Login</h2>
                     
                     <div class="school-logo-container">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK8AAABgCAMAAACv97wXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFQTFRF///MmXvUnX3UnXzTnn3ToX7ToX3Uon7UoXzTo37To33Uo37Vo37VpX7WpX3Wpn7Xpn7Xp37Yp37YqH7ZqH7ZqX7aqn7bqwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKFh9ZgAAACV0Uk5T////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////AF6g79wAAANoSURBVHja7ZPrctMwEISv7TpxHDfN0DRN06SkfP+nshMcYmOnqKx02OnwzYw9S3pZ+7F7bFkhYmJiYmJiYmJiYmJiYmJiYmIikp4Yt9t9d9vt2mPfX8wYw8Y998N9s/l899wP593tMeaxcc+n+3m9b9ft+XE+bdfzeDmvz+16f7ofc/fscw5fdsc8PPePzfZ8uB7v23b/8O/593RcHq9P+3Wbz5g553G6b8/L/et0vD7Nn8PnnO9vHuvT4fVpM3/p59PlvD0f1uvbYw6fLpftvB4e9v6vMefz++l63A6rP+f++Xm7HdbD3z+v/fPj4bxv6zE/7N0x5vL5fL4eVvM5u8/9X9O/98fHeU6f+/v5ZfvXbswP++vVjPlp++vY7P62H/bH/LDezO3P+vPldDtsmP6s39u637sN/8O+reZtNZfPp8O6HeZsw3q9bdY2zD6P43Ndb5sxNsw+76ftYIeYs/+p/fF8T9/9w+fVfH7o89M+p/S9Zg6fv9bn9K/YvL98Pj6nx39r8/7y+XWfrzGf/p827y/7Z3p++nz+m9r8vOf/w8b8vE+fD/uOOWP+6fP+mX1b89P+p8/Hfeofv63N+8v+mT8/7f8fNszo/fWwYc7pf6V/R8e8P2+H9bCHmXP8/P9f9mFOn49j3ofM6XNdzh/H6fM4fP6cz7b9ZfD3p/Ypfc7p2Wb67m9vps+23/1N/56fNsy+rZl+WvP9S//bH6bfaX/TvzVv67F7vjzv+9v++Xo8zD7t0fUxt++X0/r6uG3X/bptp08/fcypffocP/ftsn0+bNu8XreXU/88XW8P62Ofv9u6v3w+fG7b8fWxb5+f23Wdv5bpdFrbNPvst5fT/LwepvWxrZ+P4/S5/enH6fPUnu6P7fRx6vPrdPx0vI6pPe3pdD69TscptU8ptSmlf9rcX79M13OaT/v6+bK/fNn/u8/H6fon39iM67W09x+TzmX+Nh9uX0/jAn5v+vMTEF8L9gI8RERA7X5SZZ/E8AAAAASUVORK5CYII=" alt="Sacré Cœur Wien Logo" class="school-logo">
+                        <img src="leitbild-blau.png" alt="Sacré Cœur Wien Logo" class="school-logo">
                     </div>
 
                     <form class="form-container" id="loginForm">
