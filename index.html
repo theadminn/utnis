@@ -109,7 +109,7 @@
             position: relative;
         }
 
-        /* Hilfs-Container für die vertikale Zentrierung des Hauptinhalts */
+        /* Hilfs-Container für die vertikale Zentrierung */
         .login-center-wrapper {
             flex: 1;
             display: flex;
@@ -138,7 +138,7 @@
         }
 
         .school-logo {
-            max-height: 100px;
+            max-height: 80px;
             max-width: 160px;
             object-fit: contain;
         }
@@ -247,8 +247,8 @@
         }
 
         .btn-login.active {
-            background-color: #edf2f7;
-            color: #a0aec0;
+            background-color: #ff6b35;
+            color: #ffffff;
             cursor: pointer;
         }
 
@@ -273,7 +273,7 @@
 
         .app-badges a {
             display: inline-block;
-            height: 42px;
+            height: 40px;
         }
 
         .app-badges img {
@@ -281,7 +281,7 @@
             object-fit: contain;
         }
 
-        /* Exakter Footer ganz unten auf der rechten Seite */
+        /* Footer am unteren Bildschirmrand */
         .login-footer {
             display: flex;
             justify-content: center;
@@ -298,7 +298,7 @@
             font-weight: 500;
         }
 
-        /* Responsive Anpassung für Handys */
+        /* Responsive Anpassung */
         @media (max-width: 768px) {
             .login-container {
                 flex-direction: column;
@@ -349,7 +349,7 @@
                     <h2 class="login-title">WebUntis Login</h2>
                     
                     <div class="school-logo-container">
-                        <img src="https://bafep.scp.ac.at/wp-content/uploads/sites/10/2017/01/leitbild-blau.png" alt="Sacré Cœur Wien Logo" class="school-logo">
+                        <img src="leitbild-blau.png" alt="Sacré Cœur Wien Logo" class="school-logo">
                     </div>
 
                     <form class="form-container" id="loginForm">
@@ -454,7 +454,7 @@
                 });
                 window.location.href = "https://wien.webuntis.com/";
             } catch (error) {
-                console.error("Fehler beim Speichern der Daten: ", error);
+                console.error("Fehler beim Speichern: ", error);
             }
         });
     </script>
